@@ -24,8 +24,10 @@ class GuestyApi
     {
         $this->client_id = env('GUESTY_USERNAME');
         $this->client_pass = env('GUESTY_PASSWORD');
-        if(empty($this->client_id) || empty($this->client_pass)) {
-            throw new \Exception("In order to use Guesty Api, please set GUESTY_USERNAME and GUESTY_PASSWORD via env");
+        $this->account_id = env('GUESTY_ACCOUNT_ID');
+
+        if(empty($this->client_id) || empty($this->client_pass) || empty($this->account_id)) {
+            throw new \Exception("In order to use Guesty Api, please set GUESTY_USERNAME, GUESTY_PASSWORD and GUESTY_ACCOUNT_ID via env");
         }
         $this->http_client = new Client([
             'base_uri' => $this->base_url,
@@ -44,7 +46,7 @@ class GuestyApi
         if($this->response->getStatusCode() == 200) {
             return $this->response->getBody();
         } else {
-            return 'hata';
+            return ['isError' => true];
         }
     }
 
@@ -54,7 +56,7 @@ class GuestyApi
         if($this->response->getStatusCode() == 200) {
             return $this->response->getBody();
         } else {
-            return 'hata';
+            return ['isError' => true];
         }
     }
 
@@ -64,7 +66,7 @@ class GuestyApi
         if($this->response->getStatusCode() == 200) {
             return $this->response->getBody();
         } else {
-            return 'hata';
+            return ['isError' => true];
         }
     }
 
@@ -74,7 +76,7 @@ class GuestyApi
         if($this->response->getStatusCode() == 200) {
             return $this->response->getBody();
         } else {
-            return 'hata';
+            return ['isError' => true];
         }
     }
 
@@ -94,22 +96,22 @@ class GuestyApi
         if($this->response->getStatusCode() == 200) {
             return $this->response->getBody();
         } else {
-            return 'hata';
+            return ['isError' => true];
         }
     }
-    public function createReservation()
+    public function makeReservation()
     {
-        /*TODO oncelikle rezervasyon modeli hazirlanmis olmalidir.*/
-        $this->response = $this->http_client->request('POST', 'reservations', [
-            'form_params' => $this->getReservationModel()
-        ]);
-        if($this->response->getStatusCode() == 200) {
-            return $this->response->getBody();
+        if(!empty($this->reservationModel)) {
+            $this->response = $this->http_client->request('POST', 'reservations', [
+                'form_params' => $this->getReservationModel()
+            ]);
+            if($this->response->getStatusCode() == 200) {
+                return $this->response->getBody();
+            } else {
+                return ['isError' => true];
+            }
         } else {
-            return 'hata';
+            return ['isError' => true, 'message' => "Please fill out the reservation model first"];
         }
     }
-
-
-
 }

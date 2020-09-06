@@ -12,9 +12,9 @@ trait Reservation {
         'awaiting_payment'
     ];
 
-    public function getReservationModel($data)
+    public function getReservationModel()
     {
-
+        return $this->reservationModel;
     }
     public function setReservationCheckInDate($data)
     {
@@ -42,18 +42,17 @@ trait Reservation {
             'phone' => $phone,
             'email' => $email
         ];
-
         return $this;
-
     }
     public function setReservationListingId($data)
     {
         $this->reservationModel['listingId'] = $data;
         return $this;
     }
-    public function setReservationModel($parameters)
+    public function setReservationAccountId($data)
     {
-
+        $this->reservationModel['account_id'] = $data;
+        return $this;
     }
 
     public function setReservationStatus($data)
