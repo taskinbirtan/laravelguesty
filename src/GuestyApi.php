@@ -67,6 +67,16 @@ class GuestyApi
         }
     }
 
+    public function getFinancialsOfListing($id)
+    {
+        $this->response = $this->http_client->request('GET', 'financials/listing/' . $id);
+        if($this->response->getStatusCode() == 200) {
+            return $this->response->getBody();
+        } else {
+            return 'hata';
+        }
+    }
+
 
 
 }
