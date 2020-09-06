@@ -2,11 +2,12 @@
 
 namespace TaskinBirtan\LaravelGuesty;
 
-use Dompdf\Exception;
 use GuzzleHttp\Client;
 
 class GuestyApi
 {
+
+    use Reservation;
 
     protected $base_url = 'https://api.guesty.com/api/v2/';
 
@@ -86,9 +87,21 @@ class GuestyApi
         }
         $this->response = $this->http_client->request('GET', 'listings/' . $id . '/calendar', [
             'query' => [
-                'from' => $start_date,
-                'to' => $end_date
+                'from' => strtotime(date('Y-m-d'), $start_date),
+                'to' => strtotime(date('Y-m-d'), $end_date)
             ]
+        ]);
+        if($this->response->getStatusCode() == 200) {
+            return $this->response->getBody();
+        } else {
+            return 'hata';
+        }
+    }
+    public function createReservation()
+    {
+        /*TODO oncelikle rezervasyon modeli hazirlanmis olmalidir.*/
+        $this->response = $this->http_client->request('POST', 'reservations', [
+            'form_params' => $this->getReservationModel()
         ]);
         if($this->response->getStatusCode() == 200) {
             return $this->response->getBody();
