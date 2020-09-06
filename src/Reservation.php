@@ -57,7 +57,7 @@ trait Reservation {
 
     public function setReservationStatus($data)
     {
-        if(in_array($this->reservationStatus, $data)) {
+        if(in_array($data, $this->reservationStatus)) {
             $this->reservationModel['status'] = $data;
         }
         return $this;
