@@ -57,6 +57,16 @@ class GuestyApi
         }
     }
 
+    public function getAllCities()
+    {
+        $this->response = $this->http_client->request('GET', 'listings/cities');
+        if($this->response->getStatusCode() == 200) {
+            return $this->response->getBody();
+        } else {
+            return 'hata';
+        }
+    }
+
 
 
 }
