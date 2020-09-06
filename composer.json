@@ -17,9 +17,5 @@
         "psr-4": {
             "TaskinBirtan\\LaravelGuesty\\Tests\\": "tests/"
         }
-    },
-
-    "require": {
-        "guzzlehttp/guzzle": "^6.3"
     }
 }
