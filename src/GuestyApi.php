@@ -77,6 +77,26 @@ class GuestyApi
         }
     }
 
+    public function getCalendarOfListing($id, $start_date = null, $end_date = null)
+    {
+        if(empty($start_date) || empty($end_date)) {
+            $start_date = date('Y-01-01');
+            $end_date = date('Y-m-d', strtotime('last day of december'));
+
+        }
+        $this->response = $this->http_client->request('GET', 'listings/' . $id . '/calendar', [
+            'query' => [
+                'from' => $start_date,
+                'to' => $end_date
+            ]
+        ]);
+        if($this->response->getStatusCode() == 200) {
+            return $this->response->getBody();
+        } else {
+            return 'hata';
+        }
+    }
+
 
 
 }
