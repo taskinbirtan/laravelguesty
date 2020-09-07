@@ -124,4 +124,21 @@ class GuestyApi
             return ['isError' => true];
         }
     }
+
+    public function updateReservation($id)
+    {
+        if(!empty($this->reservationModel)) {
+            $form_params = $this->getReservationModel();
+            $this->response = $this->http_client->request('PUT', 'reservations/' . $id, [
+                'form_params' => $form_params
+            ]);
+            if($this->response->getStatusCode() == 200) {
+                return $this->response->getBody();
+            } else {
+                return ['isError' => true];
+            }
+        } else {
+            return ['isError' => true, 'message' => "Please fill out the reservation model first"];
+        }
+    }
 }
