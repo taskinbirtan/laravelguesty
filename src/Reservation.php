@@ -34,6 +34,11 @@ trait Reservation {
         ];
         return $this;
     }
+    public function setSource($data)
+    {
+        $this->reservationModel['source'] = $data;
+        return $this;
+    }
     public function setReservationGuest($firstName, $lastName, $phone, $email)
     {
         $this->reservationModel['guest'] = [
