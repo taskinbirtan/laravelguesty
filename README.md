@@ -68,6 +68,7 @@ Supported Versions
 </tbody>
 </table>
 
-
+<p>
+Please note: wrapper doesn't have all the access of the api. This will cover the basic needs. You will be able to do: get all listings, make reservations, update reservations. I won't be working on this package for a while. Ask me question if you need. </p>
 <p>
 Buy me a beer... just kidding :D </p>
